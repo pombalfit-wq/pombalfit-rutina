@@ -84,6 +84,11 @@ answer_2: string | null
 answer_3: string | null
 answer_4: string | null
 answer_5: string | null
+answer_6: string | null
+answer_7: string | null
+answer_8: string | null
+answer_9: string | null
+answer_10: string | null
 answers: LeadAnswer[]
     pageUrl: string | null
   }
