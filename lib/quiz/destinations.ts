@@ -1,18 +1,14 @@
 import type { LeadPayload } from './types'
 
-/**
- * Where each quiz sends its leads. When duplicating the quiz (e.g. "rutinas"),
- * add an entry here with its own Apps Script URL and default campaign.
- */
 type LeadDestination = {
   url: string
   defaultCampaign: string
 }
 
 const DESTINATIONS: Record<string, LeadDestination> = {
-  'recetas-pombalfit': {
+  'rutina-pombalfit': {
     url: 'https://script.google.com/macros/s/AKfycbyMJGc1a2inh6ZAOyXKhnfsCkXroUao_zRVz6xdEbzLovLDBDQou-sw3EHTaY1ZgI-P/exec',
-    defaultCampaign: 'recetas',
+    defaultCampaign: 'rutina',
   },
 }
 
@@ -31,6 +27,12 @@ export type GoogleSheetsLead = {
   tipoAyuda: string
   origen: string
   campana: string
+  entrenamiento: string
+  experiencia: string
+  lugar: string
+  material: string
+  tiempo: string
+  etapa: string
 }
 
 export function toGoogleSheetsLead(
@@ -41,11 +43,19 @@ export function toGoogleSheetsLead(
     nombre: lead.name,
     email: lead.email,
     whatsapp: lead.whatsapp,
-    objetivo: lead.answer_1 ?? '',
-    dificultad: lead.answer_2 ?? '',
-    edad: lead.answer_3 ?? '',
+
+    edad: lead.answer_1 ?? '',
+    objetivo: lead.answer_2 ?? '',
+    entrenamiento: lead.answer_3 ?? '',
+    experiencia: lead.answer_4 ?? '',
+    dificultad: lead.answer_5 ?? '',
+    lugar: lead.answer_6 ?? '',
+    material: lead.answer_7 ?? '',
+    tiempo: lead.answer_8 ?? '',
+    etapa: lead.answer_9 ?? '',
+    tipoAyuda: lead.answer_10 ?? '',
+
     situacion: lead.answer_4 ?? '',
-    tipoAyuda: lead.answer_5 ?? '',
     origen: lead.utm_source || 'Directo',
     campana: lead.utm_campaign || defaultCampaign,
   }
