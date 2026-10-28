@@ -205,11 +205,11 @@ export const rutinaQuiz: QuizConfig = {
     description:
       'Ya puedes acceder a tu Guía definitiva para empezar a entrenar a partir de los 40.',
 
-    primaryCta: {
-      label: 'DESCARGAR MI GUÍA GRATIS',
-      url: 'PONDREMOS_AQUI_EL_ENLACE_DE_LA_GUIA',
-      openInNewTab: true,
-    },
+   primaryCta: {
+  label: 'DESCARGAR MI GUÍA GRATIS',
+  url: 'https://drive.google.com/file/d/1mJD1goPtnKHQpjEVbEz4NabKcR__IT9R/view?usp=sharing',
+  openInNewTab: true,
+},
 
     upsell: {
       title: '¿Quieres dar un paso más?',
