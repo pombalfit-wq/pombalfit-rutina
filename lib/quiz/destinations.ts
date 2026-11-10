@@ -1,3 +1,4 @@
+
 import type { LeadPayload } from './types'
 
 type LeadDestination = {
@@ -12,7 +13,9 @@ const DESTINATIONS: Record<string, LeadDestination> = {
   },
 }
 
-export function getLeadDestination(quizId: string): LeadDestination | null {
+export function getLeadDestination(
+  quizId: string,
+): LeadDestination | null {
   return DESTINATIONS[quizId] ?? null
 }
 
@@ -33,6 +36,9 @@ export type GoogleSheetsLead = {
   material: string
   tiempo: string
   etapa: string
+
+  // Nueva columna AA
+  situacionPombalfit: string
 }
 
 export function toGoogleSheetsLead(
@@ -58,5 +64,9 @@ export function toGoogleSheetsLead(
     situacion: lead.answer_4 ?? '',
     origen: lead.utm_source || 'Directo',
     campana: lead.utm_campaign || defaultCampaign,
+
+    // Nueva respuesta de PombalFit
+    situacionPombalfit: lead.situacionPombalfit ?? '',
   }
 }
+
