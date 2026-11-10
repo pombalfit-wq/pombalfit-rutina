@@ -1,12 +1,28 @@
-import type { LeadContact, LeadPayload, QuizConfig, UtmParams } from './types'
+
+import type {
+  LeadContact,
+  LeadPayload,
+  QuizConfig,
+  UtmParams,
+} from './types'
 import { normalizePhone } from './validation'
 
-const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const
+const UTM_KEYS = [
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_term',
+  'utm_content',
+] as const
 
 export function readUtmParams(search: string): UtmParams {
   const params = new URLSearchParams(search)
+
   return Object.fromEntries(
-    UTM_KEYS.map((key) => [key, params.get(key)?.trim().slice(0, 200) || null]),
+    UTM_KEYS.map((key) => [
+      key,
+      params.get(key)?.trim().slice(0, 200) || null,
+    ]),
   ) as UtmParams
 }
 
@@ -19,7 +35,10 @@ export function buildLeadPayload(
 ): LeadPayload {
   const detailed = config.questions.map((question) => {
     const value = answers[question.id] ?? ''
-    const option = question.options.find((o) => o.value === value)
+    const option = question.options.find(
+      (o) => o.value === value,
+    )
+
     return {
       questionId: question.id,
       question: question.title,
@@ -28,37 +47,56 @@ export function buildLeadPayload(
     }
   })
 
+  // Nueva pregunta: situación actual con PombalFit
+  const situacionPombalfit =
+    detailed.find(
+      (item) => item.questionId === 'situacionPombalfit',
+    )?.answer ?? ''
+
   return {
     quizId: config.id,
+
     name: contact.name.trim(),
     email: contact.email.trim().toLowerCase(),
     whatsapp: normalizePhone(contact.whatsapp.trim()),
-answer_1: detailed[0]?.answer || null,
-answer_2: detailed[1]?.answer || null,
-answer_3: detailed[2]?.answer || null,
-answer_4: detailed[3]?.answer || null,
-answer_5: detailed[4]?.answer || null,
-answer_6: detailed[5]?.answer || null,
-answer_7: detailed[6]?.answer || null,
-answer_8: detailed[7]?.answer || null,
-answer_9: detailed[8]?.answer || null,
-answer_10: detailed[9]?.answer || null,
-answers: detailed,
+
+    answer_1: detailed[0]?.answer || null,
+    answer_2: detailed[1]?.answer || null,
+    answer_3: detailed[2]?.answer || null,
+    answer_4: detailed[3]?.answer || null,
+    answer_5: detailed[4]?.answer || null,
+    answer_6: detailed[5]?.answer || null,
+    answer_7: detailed[6]?.answer || null,
+    answer_8: detailed[7]?.answer || null,
+    answer_9: detailed[8]?.answer || null,
+    answer_10: detailed[9]?.answer || null,
+
+    // Nueva respuesta para Google Sheets (columna AA)
+    situacionPombalfit,
+
+    answers: detailed,
+
     registeredAt: new Date().toISOString(),
     pageUrl,
+
     ...utm,
   }
 }
 
 /**
- * Sends the lead to our own API route, which forwards it to the configured
- * webhook / CRM / email tool. Swap the destination in app/api/leads/route.ts.
+ * Envía los datos a la API del proyecto,
+ * que posteriormente los reenvía al destino configurado.
  */
 export async function submitLead(payload: LeadPayload) {
   const response = await fetch('/api/leads', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(payload),
   })
-  if (!response.ok) throw new Error('No se pudo enviar el formulario')
+
+  if (!response.ok) {
+    throw new Error('No se pudo enviar el formulario')
+  }
 }
