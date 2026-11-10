@@ -1,3 +1,4 @@
+
 export type QuizOption = {
   value: string
   label: string
@@ -17,9 +18,10 @@ export type QuizLink = {
 
 /**
  * Everything that makes a quiz unique lives in a QuizConfig.
- * To create a new quiz (e.g. "Rutinas PombalFit"), duplicate a file in
- * lib/quiz/configs and render <QuizApp config={...} /> from a new route.
- * Keep it serializable (no functions) so it can be passed from Server Components.
+ * To create a new quiz, duplicate a file in
+ * lib/quiz/configs and render <QuizApp config={...} />
+ * from a new route.
+ * Keep it serializable (no functions).
  */
 export type QuizConfig = {
   id: string
@@ -79,16 +81,21 @@ export type LeadPayload = LeadContact &
   UtmParams & {
     quizId: string
     registeredAt: string
-   answer_1: string | null
-answer_2: string | null
-answer_3: string | null
-answer_4: string | null
-answer_5: string | null
-answer_6: string | null
-answer_7: string | null
-answer_8: string | null
-answer_9: string | null
-answer_10: string | null
-answers: LeadAnswer[]
+
+    answer_1: string | null
+    answer_2: string | null
+    answer_3: string | null
+    answer_4: string | null
+    answer_5: string | null
+    answer_6: string | null
+    answer_7: string | null
+    answer_8: string | null
+    answer_9: string | null
+    answer_10: string | null
+
+    // Nueva pregunta: situación con PombalFit
+    situacionPombalfit: string
+
+    answers: LeadAnswer[]
     pageUrl: string | null
   }
