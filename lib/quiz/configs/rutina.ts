@@ -1,3 +1,4 @@
+
 import type { QuizConfig } from '../types'
 
 export const rutinaQuiz: QuizConfig = {
@@ -185,6 +186,26 @@ export const rutinaQuiz: QuizConfig = {
         },
       ],
     },
+
+    // NUEVA PREGUNTA FINAL
+    {
+      id: 'situacionPombalfit',
+      title: '¿Cuál es tu situación actual con PombalFit? 💗',
+      options: [
+        {
+          value: 'clienta_actual',
+          label: '💗 Soy clienta actual y tengo un plan activo con PombalFit',
+        },
+        {
+          value: 'antigua_clienta',
+          label: '🌸 Fui clienta de PombalFit, pero ahora mismo no tengo ningún plan activo',
+        },
+        {
+          value: 'nueva_clienta',
+          label: '✨ Nunca he tenido un plan con PombalFit',
+        },
+      ],
+    },
   ],
 
   leadForm: {
@@ -205,11 +226,11 @@ export const rutinaQuiz: QuizConfig = {
     description:
       'Ya puedes acceder a tu Guía definitiva para empezar a entrenar a partir de los 40.',
 
-   primaryCta: {
-  label: 'DESCARGAR MI GUÍA GRATIS',
-  url: 'https://drive.google.com/file/d/1mJD1goPtnKHQpjEVbEz4NabKcR__IT9R/view?usp=sharing',
-  openInNewTab: true,
-},
+    primaryCta: {
+      label: 'DESCARGAR MI GUÍA GRATIS',
+      url: 'https://drive.google.com/file/d/1mJD1goPtnKHQpjEVbEz4NabKcR__IT9R/view?usp=sharing',
+      openInNewTab: true,
+    },
 
     upsell: {
       title: '¿Quieres dar un paso más?',
